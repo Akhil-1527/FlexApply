@@ -1,33 +1,37 @@
 <div class="container">
     <div class="footer-content">
         <div class="footer-logo">
-            <img src="assets/images/logo-white-placeholder.png" alt="FlexApply Logo" height="40">
+            <img src="assets/images/logo-white-placeholder.png" alt="FlexApply Logo" height="40" width="160">
         </div>
         
         <div class="footer-links">
-            <div class="footer-nav">
-                <h4>Quick Links</h4>
-                <ul>
+            <nav class="footer-nav" aria-label="Site navigation">
+                <h4 id="quick-links-heading">Quick Links</h4>
+                <ul aria-labelledby="quick-links-heading">
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#process">Our Process</a></li>
                     <li><a href="#why-choose">Why Choose Us</a></li>
                     <li><a href="#form">Contact Us</a></li>
                 </ul>
-            </div>
+            </nav>
             
-            <div class="footer-nav">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#" target="_blank">Privacy Policy</a></li>
-                    <li><a href="#" target="_blank">Terms of Service</a></li>
+            <nav class="footer-nav" aria-label="Legal information">
+                <h4 id="legal-heading">Legal</h4>
+                <ul aria-labelledby="legal-heading">
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
                 </ul>
-            </div>
+            </nav>
             
             <div class="footer-nav">
-                <h4>Connect With Us</h4>
-                <div class="social-icons">
-                    <a href="#" target="_blank" aria-label="LinkedIn"><img src="assets/images/linkedin-icon.png" alt="LinkedIn"></a>
-                    <a href="mailto:contact@flexapply.com" aria-label="Email"><img src="assets/images/email-icon.png" alt="Email"></a>
+                <h4 id="social-heading">Connect With Us</h4>
+                <div class="social-icons" aria-labelledby="social-heading">
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Connect with us on LinkedIn">
+                        <img src="assets/images/linkedin-icon.png" alt="" aria-hidden="true" width="24" height="24">
+                    </a>
+                    <a href="mailto:contact@flexapply.com" aria-label="Email us at contact@flexapply.com">
+                        <img src="assets/images/email-icon.png" alt="" aria-hidden="true" width="24" height="24">
+                    </a>
                 </div>
             </div>
         </div>
@@ -50,6 +54,10 @@
     margin-bottom: 20px;
 }
 
+.footer-logo img {
+    display: block;
+}
+
 .footer-links {
     display: flex;
     flex-wrap: wrap;
@@ -65,6 +73,7 @@
 .footer-nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .footer-nav ul li {
@@ -83,6 +92,12 @@
 .social-icons {
     display: flex;
     gap: 15px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .social-icons a img {
@@ -105,6 +120,7 @@
 .footer-bottom p {
     color: var(--light-gray);
     font-size: 0.9rem;
+    margin: 0;
 }
 
 @media (max-width: 768px) {

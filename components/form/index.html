@@ -4,10 +4,10 @@
             <div class="value-proposition">
                 <h2>How We Help Visa Holders Get More Interviews</h2>
                 <ul class="benefits-list">
-                    <li><span class="check-icon">✓</span> <strong>Quality over quantity</strong> - focused, tailored applications</li>
-                    <li><span class="check-icon">✓</span> <strong>Save 15+ hours per week</strong> on tedious application tasks</li>
-                    <li><span class="check-icon">✓</span> <strong>Strategic visa status presentation</strong> to avoid automatic rejections</li>
-                    <li><span class="check-icon">✓</span> <strong>Focus entirely on interviews</strong> instead of repetitive applications</li>
+                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Quality over quantity</strong> - focused, tailored applications</li>
+                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Save 15+ hours per week</strong> on tedious application tasks</li>
+                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Strategic visa status presentation</strong> to avoid automatic rejections</li>
+                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Focus entirely on interviews</strong> instead of repetitive applications</li>
                 </ul>
                 
                 <div class="trust-message mt-4">
@@ -32,57 +32,70 @@
                 <p class="limited-spots mb-3">Limited to 20 new clients this month</p>
             </div>
             
-            <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <label for="visa">Visa Status</label>
-                    <select id="visa" name="visa" class="form-control" required>
-                        <option value="">Select your visa status</option>
-                        <option value="OPT">OPT</option>
-                        <option value="CPT">CPT</option>
-                        <option value="STEM OPT">STEM OPT</option>
-                        <option value="H1B">H1B</option>
-                        <option value="GC EAD">GC EAD</option>
-                        <option value="US Citizen/PR">US Citizen/PR</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>What's your biggest challenge right now?</label>
-                    <div class="challenge-options">
-                        <label class="challenge-option">
-                            <input type="radio" name="challenge" value="too-many-applications">
-                            <span class="challenge-text">Spending too much time on applications</span>
-                        </label>
-                        <label class="challenge-option">
-                            <input type="radio" name="challenge" value="linkedin-not-working">
-                            <span class="challenge-text">LinkedIn Easy Apply not working</span>
-                        </label>
-                        <label class="challenge-option">
-                            <input type="radio" name="challenge" value="visa-issues">
-                            <span class="challenge-text">Getting rejected due to visa status</span>
-                        </label>
-                        <label class="challenge-option">
-                            <input type="radio" name="challenge" value="no-responses">
-                            <span class="challenge-text">Not hearing back from applications</span>
-                        </label>
+            <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST" novalidate>
+                <fieldset>
+                    <legend class="visually-hidden">Contact Information</legend>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                        <div class="invalid-feedback">Please enter your name</div>
                     </div>
-                </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend class="visually-hidden">Visa Details</legend>
+                    <div class="form-group">
+                        <label for="visa">Visa Status</label>
+                        <select id="visa" name="visa" class="form-control" required>
+                            <option value="">Select your visa status</option>
+                            <option value="OPT">OPT</option>
+                            <option value="CPT">CPT</option>
+                            <option value="STEM OPT">STEM OPT</option>
+                            <option value="H1B">H1B</option>
+                            <option value="GC EAD">GC EAD</option>
+                            <option value="US Citizen/PR">US Citizen/PR</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your visa status</div>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend class="visually-hidden">Job Search Challenges</legend>
+                    <div class="form-group">
+                        <label>What's your biggest challenge right now?</label>
+                        <div class="challenge-options">
+                            <label class="challenge-option">
+                                <input type="radio" name="challenge" value="too-many-applications" required>
+                                <span class="challenge-text">Spending too much time on applications</span>
+                            </label>
+                            <label class="challenge-option">
+                                <input type="radio" name="challenge" value="linkedin-not-working">
+                                <span class="challenge-text">LinkedIn Easy Apply not working</span>
+                            </label>
+                            <label class="challenge-option">
+                                <input type="radio" name="challenge" value="visa-issues">
+                                <span class="challenge-text">Getting rejected due to visa status</span>
+                            </label>
+                            <label class="challenge-option">
+                                <input type="radio" name="challenge" value="no-responses">
+                                <span class="challenge-text">Not hearing back from applications</span>
+                            </label>
+                        </div>
+                        <div class="invalid-feedback">Please select a challenge</div>
+                    </div>
+                </fieldset>
                 
                 <div class="data-security mb-3">
                     <p><small>✓ Your information is kept private and used only for job applications you approve</small></p>
@@ -95,6 +108,11 @@
                 <p class="no-risk-note text-center mt-2">No commitment • Free personalized assessment</p>
             </form>
         </div>
+    </div>
+
+    <!-- Form validation notification toast -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-message"></div>
     </div>
 </div>
 
@@ -165,6 +183,70 @@
     background-color: #f8f9fa;
     padding: 20px;
     border-radius: 8px;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+legend.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.invalid-feedback {
+    display: none;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-control.is-invalid + .invalid-feedback,
+.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+/* Toast notification styling */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.3s ease;
+    max-width: 350px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background-color: var(--accent-color);
+}
+
+.toast.error {
+    background-color: #dc3545;
 }
 
 @media (max-width: 768px) {
@@ -286,6 +368,18 @@
 @media (max-width: 768px) {
     .challenge-options {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+    
+    .toast {
+        transition: none !important;
     }
 }
 </style>

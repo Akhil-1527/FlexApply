@@ -9,10 +9,12 @@
             <figure class="about-image js-fade-in js-fade-in-1">
                 <img src="assets/images/about-placeholder.jpg" 
                      alt="The FlexApply team helping international students with job applications" 
+                     width="540" height="360"
                      onerror="this.src='assets/images/fallback-image.jpg'; this.onerror=null;">
                 <noscript>
                     <img src="assets/images/fallback-image.jpg" 
-                         alt="The FlexApply team helping international students with job applications">
+                         alt="The FlexApply team helping international students with job applications"
+                         width="540" height="360">
                 </noscript>
             </figure>
             
@@ -62,6 +64,7 @@
     height: auto;
     border-radius: 0.5rem;
     box-shadow: var(--shadow);
+    display: block; /* Prevents bottom gap */
 }
 
 .about-content {
@@ -74,12 +77,17 @@
 
 .about-content .btn {
     margin-top: 1.5rem;
+    display: inline-block;
 }
 
 /* Responsive breakpoints */
 @media (max-width: 992px) {
     .about-grid {
         gap: 1.5rem;
+    }
+    
+    .about-content {
+        padding: 1rem;
     }
 }
 
@@ -90,6 +98,12 @@
     
     .about-image {
         margin-bottom: 1.875rem;
+    }
+    
+    .about-content .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
     }
 }
 

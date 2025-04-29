@@ -9,8 +9,9 @@
         <ul class="benefits-list">
             <li class="benefit-item js-fade-in js-fade-in-1 quality-indicator">
                 <img src="assets/images/quality-icon.png" 
-                     alt="Quality Applications Icon" 
+                     alt="" 
                      class="benefit-icon"
+                     aria-hidden="true"
                      onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
                 <h3 class="benefit-title">Quality Over Quantity</h3>
                 <p>We focus on 30-40 carefully tailored applications per month for each client instead of hundreds of generic submissions that get filtered out.</p>
@@ -18,8 +19,9 @@
             
             <li class="benefit-item js-fade-in js-fade-in-2">
                 <img src="assets/images/visa-icon.png" 
-                     alt="Visa Status Icon" 
+                     alt="" 
                      class="benefit-icon"
+                     aria-hidden="true"
                      onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
                 <h3 class="benefit-title">Visa Status Clarity</h3>
                 <p>We position your work authorization appropriately in applications, reducing rejections from employers who don't understand visa terms.</p>
@@ -27,8 +29,9 @@
             
             <li class="benefit-item js-fade-in js-fade-in-3">
                 <img src="assets/images/time-icon.png" 
-                     alt="Time Efficiency Icon" 
+                     alt="" 
                      class="benefit-icon"
+                     aria-hidden="true"
                      onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
                 <h3 class="benefit-title">Focus Your Energy</h3>
                 <p>Instead of spending hours submitting applications, concentrate on networking and interview preparation while we handle the tedious process.</p>
@@ -36,8 +39,9 @@
             
             <li class="benefit-item js-fade-in js-fade-in-4">
                 <img src="assets/images/track-icon.png" 
-                     alt="Transparency Icon" 
+                     alt="" 
                      class="benefit-icon"
+                     aria-hidden="true"
                      onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
                 <h3 class="benefit-title">Complete Transparency</h3>
                 <p>We provide detailed updates about which positions we've applied to on your behalf, so you always know exactly where your applications stand.</p>
@@ -95,6 +99,7 @@
     width: 3.75rem;
     height: auto;
     margin: 0 auto 1.25rem;
+    display: block;
 }
 
 .benefit-title {
@@ -102,7 +107,6 @@
     margin-bottom: 0.75rem;
 }
 
-/* Responsive breakpoints */
 @media (max-width: 1200px) {
     .benefits-list {
         grid-template-columns: repeat(4, 1fr);

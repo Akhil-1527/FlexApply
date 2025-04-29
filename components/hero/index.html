@@ -14,10 +14,10 @@
             
             <div class="cta-container js-fade-in js-fade-in-3">
                 <a href="#form" class="btn btn-primary btn-lg js-pulse-button" aria-label="Apply for our service">Apply For Our Service</a>
-                <p class="limited-spots">
+                <div class="limited-spots">
                     <span class="limited-icon" aria-hidden="true">!</span>
                     <span>Limited to 20 clients per month</span>
-                </p>
+                </div>
             </div>
             
             <div class="secondary-cta js-fade-in js-fade-in-4">
@@ -74,6 +74,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 1.5rem;
+    width: 100%;
 }
 
 .btn-lg {
@@ -89,18 +90,6 @@
     animation: pulse 2s infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .js-pulse-button {
-        animation: none;
-    }
-    
-    .js-fade-in {
-        opacity: 1;
-        transform: none;
-        animation: none;
-    }
-}
-
 .limited-spots {
     color: #FFD166;
     font-size: 0.9rem;
@@ -110,6 +99,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .limited-icon {
@@ -128,6 +121,19 @@
 
 .secondary-cta {
     margin-top: 1rem;
+    width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .js-pulse-button {
+        animation: none;
+    }
+    
+    .js-fade-in {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -141,6 +147,10 @@
     
     .cta-container, .secondary-cta {
         padding: 0 20px;
+    }
+    
+    .limited-spots {
+        max-width: 100%;
     }
 }
 </style>

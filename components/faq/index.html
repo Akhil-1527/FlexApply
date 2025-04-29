@@ -5,56 +5,56 @@
     </div>
     
     <div class="faq-container fade-in fade-in-1">
-        <div class="faq-item">
-            <div class="faq-question" tabindex="0">
+        <details class="faq-item">
+            <summary class="faq-question">
                 <h3>How is your service different from applying on my own?</h3>
                 <span class="faq-toggle" aria-hidden="true">+</span>
-            </div>
+            </summary>
             <div class="faq-answer">
                 <p>Unlike mass application approaches using tools like LinkedIn Easy Apply, we craft tailored applications for each position. While you could apply to hundreds of jobs with generic submissions, our approach focuses on 30-40 quality applications per month with customized details that highlight your relevant skills and present your visa status appropriately.</p>
             </div>
-        </div>
+        </details>
         
-        <div class="faq-item">
-            <div class="faq-question" tabindex="0">
+        <details class="faq-item">
+            <summary class="faq-question">
                 <h3>Why do you limit the number of clients you accept?</h3>
                 <span class="faq-toggle" aria-hidden="true">+</span>
-            </div>
+            </summary>
             <div class="faq-answer">
                 <p>We intentionally limit our client base to 20 new clients per month to ensure we can provide personalized attention to each person we work with. This allows us to focus on quality over quantity, carefully selecting and crafting applications for each client rather than taking a mass-market approach that dilutes our effectiveness.</p>
             </div>
-        </div>
+        </details>
         
-        <div class="faq-item">
-            <div class="faq-question" tabindex="0">
+        <details class="faq-item">
+            <summary class="faq-question">
                 <h3>How quickly will you start applying to jobs?</h3>
                 <span class="faq-toggle" aria-hidden="true">+</span>
-            </div>
+            </summary>
             <div class="faq-answer">
                 <p>After our initial consultation and receiving your resume, we typically begin identifying suitable positions within 1-2 business days. We focus on quality applications rather than rushing through the process, so we'll work with you to ensure each application is properly tailored before submission.</p>
             </div>
-        </div>
+        </details>
         
-        <div class="faq-item">
-            <div class="faq-question" tabindex="0">
+        <details class="faq-item">
+            <summary class="faq-question">
                 <h3>Will you apply to jobs without my approval?</h3>
                 <span class="faq-toggle" aria-hidden="true">+</span>
-            </div>
+            </summary>
             <div class="faq-answer">
                 <p>Absolutely not. You maintain complete control over your job search. We identify suitable positions based on your profile and preferences, but you'll always review and approve each job before we submit an application on your behalf. This ensures every application aligns with your career goals and preferences.</p>
             </div>
-        </div>
+        </details>
         
-        <div class="faq-item">
-            <div class="faq-question" tabindex="0">
+        <details class="faq-item">
+            <summary class="faq-question">
                 <h3>I've been using LinkedIn Easy Apply with no results. Can you help?</h3>
                 <span class="faq-toggle" aria-hidden="true">+</span>
-            </div>
+            </summary>
             <div class="faq-answer">
                 <p>Yes! Many of our clients come to us after spending months submitting hundreds of applications through LinkedIn Easy Apply with minimal results. Our tailored approach focuses on quality over quantity, ensuring your applications pass through applicant tracking systems and properly showcase your qualifications and visa status.</p>
                 <p class="faq-cta"><a href="https://calendly.com/flexapply/consultation" target="_blank" rel="noopener noreferrer">Schedule a consultation to discuss your situation</a></p>
             </div>
-        </div>
+        </details>
     </div>
     
     <div class="text-center mt-5 mb-3 fade-in fade-in-2">
@@ -98,6 +98,11 @@
     padding: 20px;
     background-color: #f8f9fa;
     cursor: pointer;
+    list-style: none;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
 }
 
 .faq-question:focus {
@@ -118,18 +123,14 @@
 }
 
 .faq-answer {
-    padding: 0 20px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-}
-
-.faq-item.active .faq-answer {
     padding: 20px;
-    max-height: 300px;
 }
 
-.faq-item.active .faq-toggle {
+.faq-item:not([open]) .faq-answer {
+    display: none;
+}
+
+.faq-item[open] .faq-toggle {
     transform: rotate(45deg);
 }
 
@@ -177,12 +178,51 @@
         animation: none !important;
     }
     
-    .faq-answer {
-        transition: none !important;
-    }
-    
-    .faq-item.active .faq-toggle {
+    .faq-item[open] .faq-toggle {
         transform: none !important;
     }
 }
 </style>
+
+<script>
+// JavaScript to handle details behavior
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    // Add click handler for each FAQ item
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        // Handle keyboard accessibility
+        question.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.open = !item.open;
+                
+                // Close other open items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.open) {
+                        otherItem.open = false;
+                    }
+                });
+            }
+        });
+        
+        // Handle clicks - this ensures toggle behavior works correctly
+        question.addEventListener('click', function(e) {
+            // Prevent the default details behavior to implement custom toggle
+            if (item.open) {
+                e.preventDefault();
+                item.open = false;
+            } else {
+                // Close other open items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.open) {
+                        otherItem.open = false;
+                    }
+                });
+            }
+        });
+    });
+});
+</script>

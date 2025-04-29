@@ -7,22 +7,40 @@
     
     <div class="grid grid-3">
         <div class="card process-step fade-in fade-in-1">
-            <div class="step-number">1</div>
-            <img src="assets/images/upload-icon.png" alt="Upload" class="card-icon">
+            <div class="step-number" aria-hidden="true">1</div>
+            <img src="assets/images/upload-icon.png" 
+                 alt="" 
+                 class="card-icon"
+                 width="60" 
+                 height="60"
+                 aria-hidden="true"
+                 onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
             <h3 class="card-title">Share Your Profile</h3>
             <p>Tell us about your experience, skills, and job preferences. We'll analyze your background to identify suitable opportunities.</p>
         </div>
         
         <div class="card process-step fade-in fade-in-2">
-            <div class="step-number">2</div>
-            <img src="assets/images/match-icon.png" alt="Match" class="card-icon">
+            <div class="step-number" aria-hidden="true">2</div>
+            <img src="assets/images/match-icon.png" 
+                 alt="" 
+                 class="card-icon"
+                 width="60" 
+                 height="60"
+                 aria-hidden="true"
+                 onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
             <h3 class="card-title">Review & Approve</h3>
             <p>We select relevant positions based on your profile and visa status. You review and approve each opportunity before we apply on your behalf.</p>
         </div>
         
         <div class="card process-step fade-in fade-in-3">
-            <div class="step-number">3</div>
-            <img src="assets/images/track-icon.png" alt="Track" class="card-icon">
+            <div class="step-number" aria-hidden="true">3</div>
+            <img src="assets/images/track-icon.png" 
+                 alt="" 
+                 class="card-icon"
+                 width="60" 
+                 height="60"
+                 aria-hidden="true"
+                 onerror="this.src='assets/images/fallback-icon.png'; this.onerror=null;">
             <h3 class="card-title">Application Updates</h3>
             <p>We handle the application process and provide regular updates on your submissions. Focus your energy on preparing for interviews.</p>
         </div>
@@ -32,16 +50,16 @@
 
 <style>
 .separator {
-    width: 80px;
-    height: 3px;
+    width: 5rem;
+    height: 0.1875rem;
     background-color: var(--accent-color);
-    margin: 0 auto 40px;
+    margin: 0 auto 2.5rem;
 }
 
 .process-step {
     position: relative;
     text-align: center;
-    padding: 30px 20px;
+    padding: 1.875rem 1.25rem;
 }
 
 .step-number {
@@ -63,7 +81,8 @@
 .card-icon {
     width: 60px;
     height: 60px;
-    margin: 0 auto 20px;
+    margin: 0 auto 1.25rem;
+    display: block;
 }
 
 @media (max-width: 992px) {
@@ -74,7 +93,41 @@
     }
     
     .process-step {
-        margin-bottom: 30px;
+        margin-bottom: 1.875rem;
+    }
+    
+    .process-step:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .separator {
+        width: 4rem;
+        margin-bottom: 2rem;
+    }
+    
+    .process-step {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .separator {
+        margin-bottom: 1.5rem;
+    }
+    
+    .card-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
     }
 }
 </style>

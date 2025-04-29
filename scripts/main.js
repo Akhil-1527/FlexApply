@@ -27,83 +27,212 @@ function loadComponents() {
         { id: 'trust-component', path: 'components/trust/index.html' },
         { id: 'form-component', path: 'components/form/index.html' },
         { id: 'quality-focus-component', path: 'components/quality-focus/index.html' },
+        { id: 'faq-component', path: 'components/faq/index.html' },
         { id: 'footer-component', path: 'components/footer/index.html' }
     ];
 
-    components.forEach(component => {
+    const loadPromises = components.map(component => {
         const container = document.getElementById(component.id);
-        if (container) {
-            fetch(component.path)
-                .then(response => response.text())
-                .then(html => {
-                    container.innerHTML = html;
-                    
-                    // Initialize form if this is the form component
-                    if (component.id === 'form-component') {
-                        initFormHandling();
-                    }
-                })
-                .catch(error => {
-                    console.error(`Error loading ${component.path}:`, error);
-                });
+        if (!container) return Promise.resolve();
+        
+        return fetch(component.path)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${component.path}: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                container.innerHTML = html;
+                
+                // Initialize component-specific functionality
+                if (component.id === 'form-component') {
+                    initFormHandling();
+                } else if (component.id === 'faq-component') {
+                    initFaq();
+                }
+            })
+            .catch(error => {
+                console.error(`Error loading ${component.path}:`, error);
+                container.innerHTML = `<div class="component-error">Error loading component. Please refresh the page.</div>`;
+            });
+    });
+    
+    // After all components are loaded
+    Promise.all(loadPromises).then(() => {
+        // Handle hash fragment navigation after components load
+        if (window.location.hash) {
+            setTimeout(() => {
+                const targetElement = document.querySelector(window.location.hash);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }, 500);
         }
     });
 }
 
 // Function to initialize mobile menu
 function initMobileMenu() {
-    const mobileToggle = document.querySelector('.mobile-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (mobileToggle && navLinks) {
-        mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            // Toggle hamburger animation
-            mobileToggle.classList.toggle('active');
-        });
+    document.addEventListener('click', function(e) {
+        const mobileToggle = e.target.closest('.mobile-toggle');
+        if (!mobileToggle) return;
         
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileToggle.classList.remove('active');
-            });
-        });
-    }
+        const navLinks = document.querySelector('.nav-links');
+        if (!navLinks) return;
+        
+        const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+        mobileToggle.setAttribute('aria-expanded', !isExpanded);
+        navLinks.classList.toggle('active');
+        mobileToggle.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    document.addEventListener('click', function(e) {
+        const navLink = e.target.closest('.nav-links a');
+        if (!navLink) return;
+        
+        const navLinks = document.querySelector('.nav-links');
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        if (!navLinks || !mobileToggle) return;
+        
+        navLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+    });
+    
+    // Handle Escape key to close menu
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Escape') return;
+        
+        const navLinks = document.querySelector('.nav-links');
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        if (!navLinks || !mobileToggle || !navLinks.classList.contains('active')) return;
+        
+        navLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        mobileToggle.focus();
+    });
 }
 
 // Function to handle smooth scrolling
 function initScrollAnimation() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70, // Adjust for header height
-                    behavior: 'smooth'
-                });
-            }
-        });
+    document.addEventListener('click', function(e) {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        
+        const targetId = anchor.getAttribute('href');
+        if (targetId === '#') return;
+        
+        e.preventDefault();
+        
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+        
+        const headerOffset = 70; // Adjust for header height
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+        
+        if (supportsNativeSmoothScroll && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        } else {
+            window.scrollTo(0, offsetPosition);
+        }
     });
 }
 
-// Function to initialize form handling
+// Function to initialize form handling with validation
 function initFormHandling() {
     const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
+    if (!contactForm) return;
+    
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Reset previous validation
+        this.querySelectorAll('.is-invalid').forEach(element => {
+            element.classList.remove('is-invalid');
+        });
+        
+        // Validate the form
+        let isValid = true;
+        let firstInvalidElement = null;
+        
+        // Required fields validation
+        const requiredFields = this.querySelectorAll('[required]');
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('is-invalid');
+                isValid = false;
+                if (!firstInvalidElement) {
+                    firstInvalidElement = field;
+                }
+            }
+        });
+        
+        // Email validation
+        const emailField = this.querySelector('input[type="email"]');
+        if (emailField && emailField.value.trim()) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailField.value.trim())) {
+                emailField.classList.add('is-invalid');
+                isValid = false;
+                if (!firstInvalidElement) {
+                    firstInvalidElement = emailField;
+                }
+            }
+        }
+        
+        // Radio buttons validation
+        const radioGroups = Array.from(this.querySelectorAll('input[type="radio"][required]')).reduce((groups, radio) => {
+            if (!groups[radio.name]) groups[radio.name] = [];
+            groups[radio.name].push(radio);
+            return groups;
+        }, {});
+        
+        for (const [name, radios] of Object.entries(radioGroups)) {
+            const isChecked = radios.some(radio => radio.checked);
+            if (!isChecked) {
+                radios.forEach(radio => {
+                    const radioParent = radio.closest('.challenge-option');
+                    if (radioParent) {
+                        radioParent.classList.add('is-invalid');
+                    }
+                });
+                isValid = false;
+                if (!firstInvalidElement) {
+                    firstInvalidElement = radios[0];
+                }
+            }
+        }
+        
+        // Focus the first invalid element
+        if (firstInvalidElement) {
+            firstInvalidElement.focus();
+            showToast('Please fill in all required fields.', 'error');
+            return;
+        }
+        
+        if (isValid) {
             // Replace with actual Formspree endpoint
-            const actionUrl = 'https://formspree.io/f/yourformid';
+            const actionUrl = this.getAttribute('action') || 'https://formspree.io/f/yourformid';
             
             // Form data
             const formData = new FormData(this);
+            
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
             
             // Send form data
             fetch(actionUrl, {
@@ -114,127 +243,266 @@ function initFormHandling() {
                 }
             })
             .then(response => {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                
                 if (response.ok) {
-                    showToast('Thank you for contacting us! We\'ll get back to you shortly.');
+                    showToast('Thank you for contacting us! We\'ll get back to you shortly.', 'success');
                     contactForm.reset();
                 } else {
-                    showToast('Oops! Something went wrong. Please try again later.');
+                    showToast('Oops! Something went wrong. Please try again later.', 'error');
                 }
             })
             .catch(error => {
-                showToast('Oops! Something went wrong. Please try again later.');
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                
+                showToast('Oops! Something went wrong. Please try again later.', 'error');
                 console.error('Error:', error);
             });
+        }
+    });
+    
+    // Real-time validation for better UX
+    contactForm.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('blur', function() {
+            validateField(this);
         });
+        
+        field.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                validateField(this);
+            }
+        });
+    });
+    
+    function validateField(field) {
+        // Clear previous validation
+        field.classList.remove('is-invalid');
+        
+        // Skip validation if field is not required and empty
+        if (!field.hasAttribute('required') && !field.value.trim()) {
+            return;
+        }
+        
+        // Check if empty
+        if (field.hasAttribute('required') && !field.value.trim()) {
+            field.classList.add('is-invalid');
+            return;
+        }
+        
+        // Email validation
+        if (field.type === 'email' && field.value.trim()) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(field.value.trim())) {
+                field.classList.add('is-invalid');
+            }
+        }
     }
 }
 
 // Function to show toast notifications
-function showToast(message) {
+function showToast(message, type = '') {
     // Create toast if it doesn't exist
     let toast = document.querySelector('.toast');
     if (!toast) {
         toast = document.createElement('div');
         toast.className = 'toast';
+        
+        const toastMessage = document.createElement('div');
+        toastMessage.className = 'toast-message';
+        toast.appendChild(toastMessage);
+        
         document.body.appendChild(toast);
     }
     
-    // Set message and show
-    toast.textContent = message;
-    toast.classList.add('show');
+    // Clear previous classes
+    toast.classList.remove('success', 'error', 'show');
     
-    // Hide after 3 seconds
+    // Add type class if provided
+    if (type) {
+        toast.classList.add(type);
+    }
+    
+    // Set message
+    toast.querySelector('.toast-message').textContent = message;
+    
+    // Show toast
+    // Small delay to ensure transition works after any previous ones
     setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    // Hide after 5 seconds
+    const toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
-    }, 3000);
+    }, 5000);
+    
+    // Allow clicking to dismiss
+    toast.onclick = function() {
+        clearTimeout(toastTimeout);
+        toast.classList.remove('show');
+    };
+    
+    // Add keyboard dismissal
+    document.addEventListener('keydown', function toastKeyHandler(e) {
+        if (e.key === 'Escape' && toast.classList.contains('show')) {
+            clearTimeout(toastTimeout);
+            toast.classList.remove('show');
+            document.removeEventListener('keydown', toastKeyHandler);
+        }
+    });
 }
 
 // Initialize FAQ accordion
 function initFaq() {
     const faqItems = document.querySelectorAll('.faq-item');
     
-    if (faqItems.length > 0) {
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            
-            question.addEventListener('click', () => {
-                // Close other open items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // Toggle current item
-                item.classList.toggle('active');
-            });
-        });
-    }
-}
-
-// Add this to your existing DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', function() {
-    // Your existing code here
+    if (faqItems.length === 0) return;
     
-    // Initialize FAQ
-    initFaq();
-});
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const toggle = item.querySelector('.faq-toggle');
+        
+        // Set initial state
+        if (item.hasAttribute('open')) {
+            toggle.textContent = '×';
+        } else {
+            toggle.textContent = '+';
+        }
+        
+        // Toggle state on click
+        question.addEventListener('click', () => {
+            // This will be handled by the native details/summary behavior
+            // We just need to update the toggle icon
+            setTimeout(() => {
+                if (item.hasAttribute('open')) {
+                    toggle.textContent = '×';
+                } else {
+                    toggle.textContent = '+';
+                }
+            }, 0);
+        });
+        
+        // Handle keyboard interaction
+        question.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.open = !item.open;
+                
+                if (item.open) {
+                    toggle.textContent = '×';
+                    
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.open) {
+                            otherItem.open = false;
+                            otherItem.querySelector('.faq-toggle').textContent = '+';
+                        }
+                    });
+                } else {
+                    toggle.textContent = '+';
+                }
+            }
+        });
+    });
+}
 
 function initCounterAnimation() {
     const counterElements = document.querySelectorAll('.counter-animate');
     
     if (counterElements.length === 0) return;
     
+    // Don't animate if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counterElements.forEach(element => {
+            element.classList.add('visible');
+        });
+        return;
+    }
+    
     const options = {
-        threshold: 0.5
+        threshold: 0.5,
+        rootMargin: '0px 0px -10% 0px'
     };
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+        
+        counterElements.forEach(element => {
+            observer.observe(element);
         });
-    }, options);
-    
-    counterElements.forEach(element => {
-        observer.observe(element);
-    });
+    } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        counterElements.forEach(element => {
+            element.classList.add('visible');
+        });
+    }
 }
 
 // Floating CTA for better conversion
 function initFloatingCTA() {
+    // Check if floating CTA already exists
+    if (document.querySelector('.floating-cta')) return;
+    
     const floatingCTA = document.createElement('div');
     floatingCTA.className = 'floating-cta';
+    floatingCTA.setAttribute('role', 'dialog');
+    floatingCTA.setAttribute('aria-label', 'Application reminder');
+    
     floatingCTA.innerHTML = `
-        <button class="close-floating-cta">&times;</button>
+        <button class="close-floating-cta" aria-label="Close reminder">&times;</button>
         <p>We're accepting limited applications this month</p>
         <div class="floating-cta-buttons">
-            <a href="#form" class="btn btn-sm btn-primary">Apply Now</a>
-            <a href="https://calendly.com/flexapply/consultation" target="_blank" class="btn btn-sm btn-outline">Free Consultation</a>
+        <a href="#form" class="btn btn-sm btn-primary">Apply Now</a>
+            <a href="https://calendly.com/flexapply/consultation" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">Free Consultation</a>
         </div>
     `;
     document.body.appendChild(floatingCTA);
     
-    // Show CTA after 30 seconds
-    setTimeout(() => {
-        if (!sessionStorage.getItem('cta-closed')) {
+    // Don't show floating CTA for users who prefer reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sessionStorage.setItem('cta-closed', 'true');
+    }
+    
+    // Show CTA after 30 seconds, but only if user hasn't closed it before
+    let showCTATimeout;
+    if (!sessionStorage.getItem('cta-closed')) {
+        showCTATimeout = setTimeout(() => {
             floatingCTA.classList.add('show');
-        }
-    }, 30000);
+        }, 30000);
+    }
     
     // Or show when scrolled 50% of page
-    window.addEventListener('scroll', () => {
-        if (!sessionStorage.getItem('cta-closed')) {
-            const scrollPosition = window.scrollY;
-            const pageHeight = document.body.scrollHeight;
-            const viewportHeight = window.innerHeight;
-            
-            if (scrollPosition > (pageHeight - viewportHeight) * 0.5) {
-                floatingCTA.classList.add('show');
-            }
+    const scrollHandler = () => {
+        if (sessionStorage.getItem('cta-closed')) return;
+        
+        const scrollPosition = window.scrollY;
+        const pageHeight = document.body.scrollHeight;
+        const viewportHeight = window.innerHeight;
+        
+        if (scrollPosition > (pageHeight - viewportHeight) * 0.5) {
+            floatingCTA.classList.add('show');
+            window.removeEventListener('scroll', scrollHandler);
         }
+    };
+    
+    // Throttle scroll event for better performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(scrollHandler, 100);
     });
     
     // Close button functionality
@@ -242,6 +510,7 @@ function initFloatingCTA() {
     closeButton.addEventListener('click', () => {
         floatingCTA.classList.remove('show');
         sessionStorage.setItem('cta-closed', 'true');
+        clearTimeout(showCTATimeout);
     });
     
     // Clicking CTA buttons should also close it
@@ -250,5 +519,23 @@ function initFloatingCTA() {
         button.addEventListener('click', () => {
             floatingCTA.classList.remove('show');
         });
+    });
+    
+    // Add keyboard accessibility
+    floatingCTA.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            floatingCTA.classList.remove('show');
+            sessionStorage.setItem('cta-closed', 'true');
+            clearTimeout(showCTATimeout);
+        }
+    });
+    
+    // Hide CTA if user submits the form
+    document.addEventListener('submit', (e) => {
+        if (e.target.id === 'contact-form') {
+            floatingCTA.classList.remove('show');
+            sessionStorage.setItem('cta-closed', 'true');
+            clearTimeout(showCTATimeout);
+        }
     });
 }
