@@ -24,10 +24,11 @@ function loadComponents() {
         { id: 'about-component', path: 'components/about/index.html' },
         { id: 'process-component', path: 'components/process/index.html' },
         { id: 'why-choose-component', path: 'components/why-choose/index.html' },
-        { id: 'trust-component', path: 'components/trust/index.html' },
-        { id: 'form-component', path: 'components/form/index.html' },
         { id: 'quality-focus-component', path: 'components/quality-focus/index.html' },
+        { id: 'pricing-component', path: 'components/pricing/index.html' },
+        { id: 'trust-component', path: 'components/trust/index.html' },
         { id: 'faq-component', path: 'components/faq/index.html' },
+        { id: 'form-component', path: 'components/form/index.html' },
         { id: 'footer-component', path: 'components/footer/index.html' }
     ];
 
@@ -63,12 +64,7 @@ function loadComponents() {
         // Handle hash fragment navigation after components load
         if (window.location.hash) {
             setTimeout(() => {
-                const targetElement = document.querySelector(window.location.hash);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+                scrollToSection(window.location.hash);
             }, 500);
         }
     });
@@ -128,25 +124,26 @@ function initScrollAnimation() {
         if (targetId === '#') return;
         
         e.preventDefault();
-        
-        const targetElement = document.querySelector(targetId);
-        if (!targetElement) return;
-        
-        const headerOffset = 70; // Adjust for header height
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        
-        const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
-        
-        if (supportsNativeSmoothScroll && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        } else {
-            window.scrollTo(0, offsetPosition);
-        }
+        scrollToSection(targetId);
     });
+}
+
+// Reusable function to scroll to a section
+function scrollToSection(targetId) {
+    const targetElement = document.querySelector(targetId);
+    if (!targetElement) return;
+    
+    // No need to calculate offset manually as scroll-margin-top handles it in CSS
+    const supportsNativeSmoothScroll = 'scrollBehavior' in document.documentElement.style;
+    
+    if (supportsNativeSmoothScroll && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    } else {
+        targetElement.scrollIntoView();
+    }
 }
 
 // Function to initialize form handling with validation
