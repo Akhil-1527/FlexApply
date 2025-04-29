@@ -61,8 +61,10 @@
     margin-bottom: 2rem;
 }
 
-.trust-heading {
-    color: var(--white);
+/* Fix for heading visibility */
+.trust-section h2.trust-heading {
+    color: var(--white) !important; /* Increase specificity and ensure override */
+    opacity: 1 !important; /* Ensure visibility even if animation fails */
 }
 
 .section-separator {

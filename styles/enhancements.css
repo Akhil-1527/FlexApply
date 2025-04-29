@@ -412,3 +412,35 @@ textarea:focus {
         max-width: none;
     }
 }
+
+/* Section spacing adjustments - Remove excessive whitespace between sections */
+.section-about + .section-process,
+.section-process + .section-why-choose,
+.section-why-choose + .quality-section,
+.quality-section + .section-trust,
+.section-trust + .section-faq,
+.section-faq + .section-form {
+    margin-top: -20px; /* Reduces whitespace between adjacent sections */
+}
+
+/* Even more reduction for sections with similar backgrounds */
+.section-process + .section-why-choose {
+    margin-top: -30px;
+}
+
+/* Preserve spacing where visually needed */
+.hero-section + .section-about {
+    margin-top: 0; /* Keep normal spacing after hero */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .section-about + .section-process,
+    .section-process + .section-why-choose,
+    .section-why-choose + .quality-section,
+    .quality-section + .section-trust,
+    .section-trust + .section-faq,
+    .section-faq + .section-form {
+        margin-top: -15px; /* Slightly less reduction on mobile */
+    }
+}
