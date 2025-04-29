@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="text-center mb-4">
+        <h2 class="fade-in">How We Work</h2>
+        <p class="fade-in fade-in-1">A straightforward process designed for busy professionals</p>
+        <div class="separator"></div>
+    </div>
+    
+    <div class="grid grid-3">
+        <div class="card process-step fade-in fade-in-1">
+            <div class="step-number">1</div>
+            <img src="assets/images/upload-icon.png" alt="Upload" class="card-icon">
+            <h3 class="card-title">Share Your Profile</h3>
+            <p>Tell us about your experience, skills, and job preferences. We'll analyze your background to identify suitable opportunities.</p>
+        </div>
+        
+        <div class="card process-step fade-in fade-in-2">
+            <div class="step-number">2</div>
+            <img src="assets/images/match-icon.png" alt="Match" class="card-icon">
+            <h3 class="card-title">Review & Approve</h3>
+            <p>We select relevant positions based on your profile and visa status. You review and approve each opportunity before we apply on your behalf.</p>
+        </div>
+        
+        <div class="card process-step fade-in fade-in-3">
+            <div class="step-number">3</div>
+            <img src="assets/images/track-icon.png" alt="Track" class="card-icon">
+            <h3 class="card-title">Application Updates</h3>
+            <p>We handle the application process and provide regular updates on your submissions. Focus your energy on preparing for interviews.</p>
+        </div>
+    </div>
+</div>
+
+
+<style>
+.separator {
+    width: 80px;
+    height: 3px;
+    background-color: var(--accent-color);
+    margin: 0 auto 40px;
+}
+
+.process-step {
+    position: relative;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+}
+
+@media (max-width: 992px) {
+    .grid-3 {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .process-step {
+        margin-bottom: 30px;
+    }
+}
+</style>

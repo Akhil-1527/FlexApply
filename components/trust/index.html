@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="text-center mb-4">
+        <h2 class="fade-in" style="color: var(--white);">Our Commitment</h2>
+        <div class="separator" style="background-color: var(--light-gray);"></div>
+    </div>
+    
+    <div class="trust-content fade-in fade-in-1">
+        <div class="trust-cards">
+            <div class="trust-card">
+                <img src="assets/images/personal-icon.png" alt="Personal Attention" class="trust-icon">
+                <h3>Personal Attention</h3>
+                <p>We're a small team providing hands-on support. Every client receives dedicated attention to their unique job search needs.</p>
+            </div>
+            
+            <div class="trust-card">
+                <img src="assets/images/transparent-icon.png" alt="Complete Transparency" class="trust-icon">
+                <h3>Complete Transparency</h3>
+                <p>We provide detailed updates on all applications we submit on your behalf through personalized email reports.</p>
+            </div>
+            
+            <div class="trust-card">
+                <img src="assets/images/quality-icon.png" alt="Quality Applications" class="trust-icon">
+                <h3>Quality Focus</h3>
+                <p>We prioritize matching you with relevant positions and submitting quality applications over simply hitting application quotas.</p>
+            </div>
+        </div>
+        
+        <div class="process-note">
+            <h3>A Note About Our Process</h3>
+            <p>As a new service, we currently provide application updates through personalized emails and calls. We're developing a client dashboard that will allow you to track applications in real-time, but we believe in launching our service to help job seekers immediately rather than waiting for perfect technology.</p>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="#form" class="btn btn-primary">Start Your Application Process</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.separator {
+    width: 80px;
+    height: 3px;
+    margin: 0 auto 40px;
+}
+
+.trust-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.trust-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.trust-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 25px 20px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.trust-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 15px;
+    filter: brightness(0) invert(1);
+}
+
+.trust-card h3 {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.trust-card p {
+    color: var(--light-gray);
+    font-size: 0.95rem;
+}
+
+.process-note {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 25px;
+    border-radius: 6px;
+    margin: 30px auto;
+    max-width: 700px;
+    text-align: left;
+}
+
+.process-note h3 {
+    color: var(--white);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.process-note p {
+    color: var(--light-gray);
+}
+
+@media (max-width: 768px) {
+    .trust-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .trust-card {
+        margin-bottom: 20px;
+    }
+}
+</style>

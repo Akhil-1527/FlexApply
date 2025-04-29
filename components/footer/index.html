@@ -1,0 +1,120 @@
+<div class="container">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <img src="assets/images/logo-white-placeholder.png" alt="FlexApply Logo" height="40">
+        </div>
+        
+        <div class="footer-links">
+            <div class="footer-nav">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#process">Our Process</a></li>
+                    <li><a href="#why-choose">Why Choose Us</a></li>
+                    <li><a href="#form">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-nav">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#" target="_blank">Privacy Policy</a></li>
+                    <li><a href="#" target="_blank">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-nav">
+                <h4>Connect With Us</h4>
+                <div class="social-icons">
+                    <a href="#" target="_blank" aria-label="LinkedIn"><img src="assets/images/linkedin-icon.png" alt="LinkedIn"></a>
+                    <a href="mailto:contact@flexapply.com" aria-label="Email"><img src="assets/images/email-icon.png" alt="Email"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2025 FlexApply LLC. All rights reserved.</p>
+    </div>
+</div>
+
+<style>
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.footer-nav h4 {
+    color: var(--white);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-nav ul li {
+    margin-bottom: 10px;
+}
+
+.footer-nav ul li a {
+    color: var(--light-gray);
+    transition: var(--transition);
+}
+
+.footer-nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    transition: var(--transition);
+}
+
+.social-icons a:hover img {
+    opacity: 0.8;
+}
+
+.footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--light-gray);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+</style>

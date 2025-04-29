@@ -1,0 +1,291 @@
+<div class="container">
+    <div class="grid grid-2">
+        <div class="form-content fade-in fade-in-1">
+            <div class="value-proposition">
+                <h2>How We Help Visa Holders Get More Interviews</h2>
+                <ul class="benefits-list">
+                    <li><span class="check-icon">✓</span> <strong>Quality over quantity</strong> - focused, tailored applications</li>
+                    <li><span class="check-icon">✓</span> <strong>Save 15+ hours per week</strong> on tedious application tasks</li>
+                    <li><span class="check-icon">✓</span> <strong>Strategic visa status presentation</strong> to avoid automatic rejections</li>
+                    <li><span class="check-icon">✓</span> <strong>Focus entirely on interviews</strong> instead of repetitive applications</li>
+                </ul>
+                
+                <div class="trust-message mt-4">
+                    <p><span class="trust-emphasis">We're a new service focused exclusively on quality.</span> Unlike mass application services, we work with a limited number of clients to ensure personalized attention.</p>
+                </div>
+            </div>
+            
+            <div class="consultation-option mt-4">
+                <div class="consultation-header">
+                    <h3>Want to discuss your specific situation?</h3>
+                    <span class="consultation-badge">Free</span>
+                </div>
+                <p>Our team will answer your questions and explain exactly how we can help with your job search.</p>
+                <a href="https://calendly.com/flexapply/consultation" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-block mt-2">Reserve Your 15-Minute Consultation</a>
+                <p class="consultation-note">No obligation • Easy online scheduling</p>
+            </div>
+        </div>
+        
+        <div class="contact-form fade-in fade-in-2">
+            <div class="form-header">
+                <h3>Apply For Our Service</h3>
+                <p class="limited-spots mb-3">Limited to 20 new clients this month</p>
+            </div>
+            
+            <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="visa">Visa Status</label>
+                    <select id="visa" name="visa" class="form-control" required>
+                        <option value="">Select your visa status</option>
+                        <option value="OPT">OPT</option>
+                        <option value="CPT">CPT</option>
+                        <option value="STEM OPT">STEM OPT</option>
+                        <option value="H1B">H1B</option>
+                        <option value="GC EAD">GC EAD</option>
+                        <option value="US Citizen/PR">US Citizen/PR</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>What's your biggest challenge right now?</label>
+                    <div class="challenge-options">
+                        <label class="challenge-option">
+                            <input type="radio" name="challenge" value="too-many-applications">
+                            <span class="challenge-text">Spending too much time on applications</span>
+                        </label>
+                        <label class="challenge-option">
+                            <input type="radio" name="challenge" value="linkedin-not-working">
+                            <span class="challenge-text">LinkedIn Easy Apply not working</span>
+                        </label>
+                        <label class="challenge-option">
+                            <input type="radio" name="challenge" value="visa-issues">
+                            <span class="challenge-text">Getting rejected due to visa status</span>
+                        </label>
+                        <label class="challenge-option">
+                            <input type="radio" name="challenge" value="no-responses">
+                            <span class="challenge-text">Not hearing back from applications</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="data-security mb-3">
+                    <p><small>✓ Your information is kept private and used only for job applications you approve</small></p>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block pulse-button">Submit Application</button>
+                </div>
+                
+                <p class="no-risk-note text-center mt-2">No commitment • Free personalized assessment</p>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+.form-content {
+    padding: 30px;
+}
+
+.contact-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.consultation-option {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.consultation-option h3 {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.process-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.process-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.process-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.data-security {
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.what-happens-next {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-content {
+        padding: 20px 0;
+    }
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0;
+}
+
+.benefits-list li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.check-icon {
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.social-proof {
+    background-color: rgba(91, 192, 190, 0.1);
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 25px;
+}
+
+.clients-helped {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.consultation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.consultation-badge {
+    background-color: #FFD166;
+    color: var(--primary-color);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.consultation-note {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.response-guarantee {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.challenge-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.challenge-option {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.challenge-option:hover {
+    background-color: #e9ecef;
+}
+
+.challenge-option input {
+    margin-right: 8px;
+}
+
+.optional {
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.no-risk-note {
+    color: #6c757d;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .challenge-options {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
