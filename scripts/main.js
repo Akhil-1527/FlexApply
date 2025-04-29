@@ -199,7 +199,7 @@ function initFormHandling() {
             const isChecked = radios.some(radio => radio.checked);
             if (!isChecked) {
                 radios.forEach(radio => {
-                    const radioParent = radio.closest('.challenge-option');
+                    const radioParent = radio.closest('.challenge-option, .pricing-option');
                     if (radioParent) {
                         radioParent.classList.add('is-invalid');
                     }
@@ -245,7 +245,8 @@ function initFormHandling() {
                 submitButton.textContent = originalButtonText;
                 
                 if (response.ok) {
-                    showToast('Thank you for contacting us! We\'ll get back to you shortly.', 'success');
+                    // Show success popup instead of toast
+                    showSuccessPopup();
                     contactForm.reset();
                 } else {
                     showToast('Oops! Something went wrong. Please try again later.', 'error');
@@ -298,6 +299,35 @@ function initFormHandling() {
             }
         }
     }
+}
+
+// Function to show success popup
+function showSuccessPopup() {
+    const popup = document.getElementById('success-popup');
+    if (!popup) return;
+    
+    popup.classList.add('show');
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 5000);
+    
+    // Add click handler for manual close
+    const closeButton = popup.querySelector('.close-popup');
+    if (closeButton) {
+        closeButton.onclick = () => {
+            popup.classList.remove('show');
+        };
+    }
+    
+    // Close on escape key
+    document.addEventListener('keydown', function popupKeyHandler(e) {
+        if (e.key === 'Escape' && popup.classList.contains('show')) {
+            popup.classList.remove('show');
+            document.removeEventListener('keydown', popupKeyHandler);
+        }
+    });
 }
 
 // Function to show toast notifications
@@ -458,7 +488,7 @@ function initFloatingCTA() {
     
     floatingCTA.innerHTML = `
         <button class="close-floating-cta" aria-label="Close reminder">&times;</button>
-        <p>We're accepting limited applications this month</p>
+        <p>Ready to save time on your job search?</p>
         <div class="floating-cta-buttons">
         <a href="#form" class="btn btn-sm btn-primary">Apply Now</a>
             <a href="https://calendly.com/flexapply/consultation" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">Free Consultation</a>

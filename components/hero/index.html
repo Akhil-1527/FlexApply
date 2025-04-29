@@ -5,19 +5,15 @@
             <p class="hero-description js-fade-in js-fade-in-2">Specialized service for visa holders who want carefully tailored applications instead of mass submissions that go nowhere.</p>
             
             <div class="visa-tags js-fade-in js-fade-in-2">
-                <span class="visa-tag">OPT</span>
                 <span class="visa-tag">CPT</span>
+                <span class="visa-tag">OPT</span>
                 <span class="visa-tag">STEM OPT</span>
                 <span class="visa-tag">H1B</span>
-                <span class="visa-tag">GC EAD</span>
+                <span class="visa-tag">GC</span>
             </div>
             
             <div class="cta-container js-fade-in js-fade-in-3">
                 <a href="#form" class="btn btn-primary btn-lg js-pulse-button" aria-label="Apply for our service">Apply For Our Service</a>
-                <div class="limited-spots">
-                    <span class="limited-icon" aria-hidden="true">!</span>
-                    <span>Limited to 20 clients per month</span>
-                </div>
             </div>
             
             <div class="secondary-cta js-fade-in js-fade-in-4">
@@ -31,7 +27,7 @@
 .hero-section {
     background-color: var(--primary-color);
     color: var(--white);
-    padding: 80px 0;
+    padding: 30px 0;
 }
 
 .hero-content {
@@ -90,34 +86,6 @@
     animation: pulse 2s infinite;
 }
 
-.limited-spots {
-    color: #FFD166;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    font-weight: 500;
-    margin-top: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.limited-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    background-color: #FFD166;
-    color: var(--primary-color);
-    border-radius: 50%;
-    margin-right: 8px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
 
 .secondary-cta {
     margin-top: 1rem;
@@ -151,6 +119,10 @@
     
     .limited-spots {
         max-width: 100%;
+    }
+    
+    .hero-section {
+        padding: 20px 0; /* 📱 Even less padding on mobile */
     }
 }
 </style>

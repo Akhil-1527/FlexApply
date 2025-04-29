@@ -4,14 +4,26 @@
             <div class="value-proposition">
                 <h2>How We Help Visa Holders Get More Interviews</h2>
                 <ul class="benefits-list">
-                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Quality over quantity</strong> - focused, tailored applications</li>
-                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Save 15+ hours per week</strong> on tedious application tasks</li>
-                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Strategic visa status presentation</strong> to avoid automatic rejections</li>
-                    <li><span class="check-icon" aria-hidden="true">✓</span> <strong>Focus entirely on interviews</strong> instead of repetitive applications</li>
+                    <li>
+                        <span class="check-icon" aria-hidden="true">✓</span> 
+                        <span><strong>Quality over quantity</strong> - focused, tailored applications</span>
+                    </li>
+                    <li>
+                        <span class="check-icon" aria-hidden="true">✓</span> 
+                        <span><strong>Save 15+ hours per week</strong> on tedious application tasks</span>
+                    </li>
+                    <li>
+                        <span class="check-icon" aria-hidden="true">✓</span> 
+                        <span><strong>Strategic visa status presentation</strong> to avoid automatic rejections</span>
+                    </li>
+                    <li>
+                        <span class="check-icon" aria-hidden="true">✓</span> 
+                        <span><strong>Focus entirely on interviews</strong> instead of repetitive applications</span>
+                    </li>
                 </ul>
                 
                 <div class="trust-message mt-4">
-                    <p><span class="trust-emphasis">We're a new service focused exclusively on quality.</span> Unlike mass application services, we work with a limited number of clients to ensure personalized attention.</p>
+                    <p><span class="trust-emphasis">We're a service focused exclusively on quality.</span> Unlike mass application services, we provide personalized attention to ensure your applications stand out.</p>
                 </div>
             </div>
             
@@ -29,7 +41,7 @@
         <div class="contact-form fade-in fade-in-2">
             <div class="form-header">
                 <h3>Apply For Our Service</h3>
-                <p class="limited-spots mb-3">Limited to 20 new clients this month</p>
+                <!-- Removed limited spots messaging -->
             </div>
             
             <form id="contact-form" action="https://formspree.io/f/yourformid" method="POST" novalidate>
@@ -68,6 +80,29 @@
                             <option value="Other">Other</option>
                         </select>
                         <div class="invalid-feedback">Please select your visa status</div>
+                    </div>
+                </fieldset>
+                
+                <!-- Added pricing options -->
+                <fieldset>
+                    <legend class="visually-hidden">Service Plan</legend>
+                    <div class="form-group">
+                        <label>Select Your Plan</label>
+                        <div class="pricing-options">
+                            <label class="pricing-option">
+                                <input type="radio" name="plan" value="starter" required>
+                                <span class="pricing-text">Starter ($99/month)</span>
+                            </label>
+                            <label class="pricing-option">
+                                <input type="radio" name="plan" value="professional">
+                                <span class="pricing-text">Professional ($199/month)</span>
+                            </label>
+                            <label class="pricing-option">
+                                <input type="radio" name="plan" value="executive">
+                                <span class="pricing-text">Executive ($349/month)</span>
+                            </label>
+                        </div>
+                        <div class="invalid-feedback">Please select a plan</div>
                     </div>
                 </fieldset>
                 
@@ -113,6 +148,14 @@
     <!-- Form validation notification toast -->
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-message"></div>
+    </div>
+    
+    <!-- Added success popup notification -->
+    <div class="success-popup" id="success-popup">
+        <div class="success-content">
+            <span class="close-popup">&times;</span>
+            <p>✅ Thanks for choosing FlexApply! We'll contact you very soon.</p>
+        </div>
     </div>
 </div>
 
@@ -259,6 +302,7 @@ legend.visually-hidden {
     }
 }
 
+/* How We Help section alignment fixes */
 .benefits-list {
     list-style: none;
     padding: 0;
@@ -266,16 +310,17 @@ legend.visually-hidden {
 }
 
 .benefits-list li {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     display: flex;
     align-items: flex-start;
 }
 
 .check-icon {
+    flex-shrink: 0;
+    margin-top: 3px;
+    margin-right: 12px;
     color: var(--accent-color);
     font-weight: bold;
-    margin-right: 10px;
-    font-size: 1.1rem;
 }
 
 .highlight {
@@ -365,8 +410,84 @@ legend.visually-hidden {
     font-size: 0.8rem;
 }
 
+/* Added pricing options in form */
+.pricing-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.pricing-option {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: 1px solid #e9ecef;
+}
+
+.pricing-option:hover {
+    background-color: #e9ecef;
+}
+
+.pricing-option input {
+    margin-right: 10px;
+}
+
+/* Success popup styles */
+.success-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1050;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.success-popup.show {
+    display: block;
+    animation: fadeIn 0.5s forwards;
+}
+
+.success-content p {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @media (max-width: 768px) {
     .challenge-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .pricing-options {
         grid-template-columns: 1fr;
     }
 }
@@ -380,6 +501,10 @@ legend.visually-hidden {
     
     .toast {
         transition: none !important;
+    }
+    
+    .success-popup.show {
+        animation: none !important;
     }
 }
 </style>
