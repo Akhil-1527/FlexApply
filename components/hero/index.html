@@ -1,56 +1,56 @@
-<div class="container">
-    <div class="hero-content text-center">
-        <h1 class="fade-in fade-in-1 mb-2">Quality job applications, not endless submissions.</h1>
-        <p class="fade-in fade-in-2 mb-3">Specialized service for visa holders who want carefully tailored applications instead of mass submissions that go nowhere.</p>
-        <div class="visa-tags fade-in fade-in-2">
-            <span class="visa-tag">OPT</span>
-            <span class="visa-tag">CPT</span>
-            <span class="visa-tag">STEM OPT</span>
-            <span class="visa-tag">H1B</span>
-            <span class="visa-tag">GC EAD</span>
-        </div>
-        <div class="cta-container fade-in fade-in-3 mt-3">
-            <a href="#form" class="btn btn-primary btn-lg pulse-button">Apply For Our Service</a>
-            <p class="limited-spots mt-2">Limited to 20 clients per month</p>
-        </div>
-        <div class="secondary-cta fade-in fade-in-4 mt-3">
-            <a href="https://calendly.com/flexapply/consultation" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Book 15-Min Free Consultation</a>
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title js-fade-in js-fade-in-1">Quality job applications, not endless submissions.</h1>
+            <p class="hero-description js-fade-in js-fade-in-2">Specialized service for visa holders who want carefully tailored applications instead of mass submissions that go nowhere.</p>
+            
+            <div class="visa-tags js-fade-in js-fade-in-2">
+                <span class="visa-tag">OPT</span>
+                <span class="visa-tag">CPT</span>
+                <span class="visa-tag">STEM OPT</span>
+                <span class="visa-tag">H1B</span>
+                <span class="visa-tag">GC EAD</span>
+            </div>
+            
+            <div class="cta-container js-fade-in js-fade-in-3">
+                <a href="#form" class="btn btn-primary btn-lg js-pulse-button" aria-label="Apply for our service">Apply For Our Service</a>
+                <p class="limited-spots">
+                    <span class="limited-icon" aria-hidden="true">!</span>
+                    <span>Limited to 20 clients per month</span>
+                </p>
+            </div>
+            
+            <div class="secondary-cta js-fade-in js-fade-in-4">
+                <a href="https://calendly.com/flexapply/consultation" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" aria-label="Book a free consultation">Book 15-Min Free Consultation</a>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 <style>
+.hero-section {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 80px 0;
+}
+
 .hero-content {
     padding: 40px 0;
     max-width: 800px;
     margin: 0 auto;
 }
 
-.hero-content h1 {
-    font-size: 2.5rem;
+.hero-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     color: var(--white);
     line-height: 1.2;
+    margin-bottom: 1rem;
 }
 
-.hero-content p {
-    font-size: 1.25rem;
+.hero-description {
+    font-size: clamp(1rem, 3vw, 1.25rem);
     color: var(--light-gray);
-}
-
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-content p {
-        font-size: 1.1rem;
-    }
-    
-    .hero-content .btn {
-        display: block;
-        width: 100%;
-        margin: 10px 0 !important;
-    }
+    margin-bottom: 1.5rem;
 }
 
 .visa-tags {
@@ -58,6 +58,7 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    margin: 0 0 1.5rem;
 }
 
 .visa-tag {
@@ -68,20 +69,36 @@
     font-size: 0.9rem;
 }
 
+.cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
 .btn-lg {
     padding: 15px 32px;
     font-size: 1.1rem;
     font-weight: 600;
+    max-width: 300px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.pulse-button {
+.js-pulse-button {
     animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(91, 192, 190, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(91, 192, 190, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(91, 192, 190, 0); }
+@media (prefers-reduced-motion: reduce) {
+    .js-pulse-button {
+        animation: none;
+    }
+    
+    .js-fade-in {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
 }
 
 .limited-spots {
@@ -89,36 +106,41 @@
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     font-weight: 500;
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.or-divider {
-    display: block;
-    color: var(--light-gray);
-    margin-bottom: 10px;
-    font-size: 0.9rem;
+.limited-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background-color: #FFD166;
+    color: var(--primary-color);
+    border-radius: 50%;
+    margin-right: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.secondary-cta {
+    margin-top: 1rem;
 }
 
 @media (max-width: 768px) {
-    .cta-container, .secondary-cta {
-        padding: 0 20px;
-    }
-}
-
-.btn-lg {
-    padding: 15px 32px;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 1.8rem;
+    .btn-lg {
+        max-width: 100%;
     }
     
-    .hero-content .btn {
-        display: block;
-        width: 100%;
-        margin: 10px 0 !important;
+    .hero-content {
+        padding: 30px 0;
+    }
+    
+    .cta-container, .secondary-cta {
+        padding: 0 20px;
     }
 }
 </style>

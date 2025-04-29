@@ -4,26 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlexApply — Quality Job Applications for Visa Holders</title>
-    <meta name="description" content="FlexApply offers tailored job application services for visa holders (OPT, CPT, STEM OPT, H1B, GC EAD) focused on quality over quantity.">
+    <meta name="description" content="FlexApply helps international students and professionals with OPT, CPT, STEM OPT, H1B, and GC EAD status save time with tailored job applications focused on quality over quantity.">
+    <link rel="canonical" href="https://flexapply.com/" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+    
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/enhancements.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "FlexApply",
+      "description": "Tailored job application services for visa holders",
+      "provider": {
+        "@type": "Organization",
+        "name": "FlexApply LLC",
+        "sameAs": ["https://flexapply.com"]
+      },
+      "serviceType": "Job Application Service",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "International Students and Professionals"
+      }
+    }
+    </script>
 </head>
 <body>
-    <header>
+    <!-- Skip Navigation for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
         <div class="container">
-            <nav>
+            <nav aria-label="Main navigation">
                 <div class="logo">
-                    <a href="#"><img src="assets/images/logo-placeholder.png" alt="FlexApply Logo"></a>
+                    <a href="#" aria-label="FlexApply Home"><img src="assets/images/logo-placeholder.png" alt="FlexApply Logo"></a>
                 </div>
-                <div class="mobile-toggle">
+                <button class="mobile-toggle" aria-expanded="false" aria-controls="main-menu" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
                     <span></span>
-                </div>
-                <ul class="nav-links">
+                </button>
+                <ul class="nav-links" id="main-menu">
                     <li><a href="#about">About</a></li>
                     <li><a href="#process">Our Process</a></li>
                     <li><a href="#why-choose">Why Choose Us</a></li>
@@ -34,44 +66,73 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- Load components -->
         <section id="hero" class="section-hero">
-            <div class="component-container" id="hero-component"></div>
+            <div class="component-container" id="hero-component">
+                <!-- Component loading placeholder -->
+                <div class="component-loading">Loading...</div>
+            </div>
         </section>
 
         <section id="about" class="section-about">
-            <div class="component-container" id="about-component"></div>
+            <div class="component-container" id="about-component">
+                <div class="component-loading">Loading about section...</div>
+            </div>
         </section>
 
         <section id="process" class="section-process">
-            <div class="component-container" id="process-component"></div>
+            <div class="component-container" id="process-component">
+                <div class="component-loading">Loading process section...</div>
+            </div>
         </section>
 
         <section id="why-choose" class="section-why-choose">
-            <div class="component-container" id="why-choose-component"></div>
+            <div class="component-container" id="why-choose-component">
+                <div class="component-loading">Loading benefits section...</div>
+            </div>
         </section>
 
         <section id="quality-focus" class="quality-section">
-            <div class="component-container" id="quality-focus-component"></div>
+            <div class="component-container" id="quality-focus-component">
+                <div class="component-loading">Loading quality focus section...</div>
+            </div>
         </section>
 
         <section id="trust" class="section-trust">
-            <div class="component-container" id="trust-component"></div>
+            <div class="component-container" id="trust-component">
+                <div class="component-loading">Loading trust section...</div>
+            </div>
         </section>
 
         <section id="faq" class="section-faq">
-            <div class="component-container" id="faq-component"></div>
+            <div class="component-container" id="faq-component">
+                <div class="component-loading">Loading FAQ section...</div>
+            </div>
         </section>
 
         <section id="form" class="section-form">
-            <div class="component-container" id="form-component"></div>
+            <div class="component-container" id="form-component">
+                <div class="component-loading">Loading contact form...</div>
+            </div>
         </section>
     </main>
 
-    <footer id="footer">
-        <div class="component-container" id="footer-component"></div>
+    <footer id="footer" role="contentinfo">
+        <div class="component-container" id="footer-component">
+            <div class="component-loading">Loading footer...</div>
+        </div>
     </footer>
+
+    <noscript>
+        <div class="noscript-message">
+            <div class="container">
+                <h2>JavaScript is Required</h2>
+                <p>FlexApply requires JavaScript to function properly. Please enable JavaScript in your browser settings to access all features.</p>
+                <p>For assistance or to schedule a consultation without using our website, please email us at <a href="mailto:contact@flexapply.com">contact@flexapply.com</a>.</p>
+            </div>
+        </div>
+    </noscript>
 
     <script src="scripts/main.js"></script>
 </body>
