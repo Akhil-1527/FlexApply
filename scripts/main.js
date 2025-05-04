@@ -566,3 +566,48 @@ function initFloatingCTA() {
         }
     });
 }
+
+// 🧠 PostHog Event Tracking for FlexApply MVP
+document.addEventListener('DOMContentLoaded', function () {
+    // ✅ Apply Now Click
+    const applyBtn = document.querySelector('.btn-primary');
+    if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+            posthog.capture('click_apply_now');
+        });
+    }
+
+    // ✅ FAQ Toggle Click
+    document.querySelectorAll('.faq-question')?.forEach(el => {
+        el.addEventListener('click', () => {
+            posthog.capture('faq_toggle');
+        });
+    });
+
+    // ✅ Form Submit Attempt
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', () => {
+            posthog.capture('form_submit_attempt');
+        });
+
+        // Optional: fire after success logic if you use AJAX
+        form.addEventListener('formSuccess', () => {
+            posthog.capture('form_success');
+        });
+    }
+
+    // ✅ Scroll Depth Tracking
+    const milestones = [25, 50, 75, 100];
+    const triggered = new Set();
+
+    window.addEventListener('scroll', () => {
+        const scrolled = ((window.scrollY + window.innerHeight) / document.body.scrollHeight) * 100;
+        milestones.forEach(p => {
+            if (scrolled >= p && !triggered.has(p)) {
+                posthog.capture('scroll_depth', { percent: p });
+                triggered.add(p);
+            }
+        });
+    });
+});

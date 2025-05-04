@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlexApply — Quality Job Applications for Visa Holders</title>
     <meta name="description" content="FlexApply helps international students and professionals with OPT, CPT, STEM OPT, H1B, and GC EAD status save time with tailored job applications focused on quality over quantity.">
-    <link rel="canonical" href="https://flexapply.com/" />
+    <link rel="canonical" href="https://flexapply.org/" />
     
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -30,7 +30,7 @@
       "provider": {
         "@type": "Organization",
         "name": "FlexApply LLC",
-        "sameAs": ["https://flexapply.com"]
+        "sameAs": ["https://flexapply.org"]
       },
       "serviceType": "Job Application Service",
       "audience": {
@@ -39,16 +39,26 @@
       }
     }
     </script>
+
+    <!-- PostHog Analytics -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init bs ws ge fs capture De Ai $s register register_once register_for_session unregister unregister_for_session Is getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty xs Ss createPersonProfile Es gs opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing ys debug ks getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_6eAS4DPDk5Df5epmlA439lkPFYdAYL3qjh046wXEKs5', {
+        api_host: 'https://us.i.posthog.com',
+        person_profiles: 'identified_only'
+    })
+</script>
+
 </head>
 <body>
     <!-- Skip Navigation for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- <a href="#main-content" class="skip-link">Skip to main content</a> -->
     
     <header role="banner" class="site-header">
         <div class="container">
             <nav aria-label="Main navigation">
                 <div class="logo">
-                    <a href="#" aria-label="FlexApply Home"><img src="assets/images/logo.svg" alt="FlexApply Logo"></a>
+                    <a href="#" aria-label="FlexApply Home"><img src="assets/images/logo.svg.svg" alt="FlexApply"></a>
                 </div>
                 <button class="mobile-toggle" aria-expanded="false" aria-controls="main-menu" aria-label="Toggle menu">
                     <span></span>
@@ -120,6 +130,7 @@
         </div>
     </noscript>
 
-    <script src="scripts/main.js"></script>
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/pricing.js" defer></script>
 </body>
 </html>

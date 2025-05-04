@@ -1,0 +1,52 @@
+{
+    "plans": [
+      {
+        "title": "Starter",
+        "price": "$199",
+        "period": "/month",
+        "description": "Perfect for entry-level positions and recent graduates",
+        "features": [
+          "Up to 20 tailored applications per month",
+          "Resume review & optimization",
+          "Basic ATS keyword optimization",
+          "Email support",
+          "Weekly application reports"
+        ],
+        "highlighted": false
+      },
+      {
+        "title": "Professional",
+        "price": "$199",
+        "period": "/month",
+        "description": "Ideal for mid-level professionals with specialized skills",
+        "features": [
+          "Up to 30 tailored applications per month",
+          "Resume review & optimization",
+          "Advanced ATS keyword optimization",
+          "Strategic visa status presentation",
+          "Customized cover letter templates",
+          "Priority email support",
+          "Bi-weekly progress calls"
+        ],
+        "highlighted": true
+      },
+      {
+        "title": "Executive",
+        "price": "$349",
+        "period": "/month",
+        "description": "For senior professionals and specialized technical roles",
+        "features": [
+          "Up to 40 tailored applications per month",
+          "Premium resume rewriting",
+          "Advanced ATS keyword optimization",
+          "Strategic visa status presentation",
+          "Custom cover letters for each role",
+          "LinkedIn profile optimization",
+          "Priority support with dedicated specialist",
+          "Weekly progress calls and strategy sessions"
+        ],
+        "highlighted": false
+      }
+    ]
+  }
+  
