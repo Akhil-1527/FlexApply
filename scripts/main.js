@@ -16,8 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize floating CTA
     initFloatingCTA();
     
-    // Set active nav links
-    setActiveNavLinks();
+    // Set active nav links - moved to after components load
+    setTimeout(function() {
+        setActiveNavLinks();
+        // Initial call to highlight the visible section
+        updateActiveNavOnScroll();
+    }, 500);
     
     // Add listener for scroll events to update active nav link
     window.addEventListener('scroll', function() {
@@ -80,6 +84,9 @@ function loadComponents() {
                 scrollToSection(window.location.hash);
             }, 500);
         }
+        
+        // Reapply active nav highlighting after components load
+        setActiveNavLinks();
     });
 }
 
@@ -157,6 +164,11 @@ function scrollToSection(targetId) {
     } else {
         targetElement.scrollIntoView();
     }
+    
+    // Update active state after scrolling
+    setTimeout(() => {
+        updateActiveNavOnScroll();
+    }, 100);
 }
 
 // Function to initialize form handling with validation
@@ -596,12 +608,14 @@ function setActiveNavLinks() {
     
     // Handle special cases for individual pages
     if (currentPath.includes('privacy-policy.html')) {
-        document.querySelector('.nav-links a[href="privacy-policy.html"]')?.classList.add('active');
+        const privacyLink = document.querySelector('.nav-links a[href="privacy-policy.html"]');
+        if (privacyLink) privacyLink.classList.add('active');
         return;
     }
     
     if (currentPath.includes('terms.html')) {
-        document.querySelector('.nav-links a[href="terms.html"]')?.classList.add('active');
+        const termsLink = document.querySelector('.nav-links a[href="terms.html"]');
+        if (termsLink) termsLink.classList.add('active');
         return;
     }
     
@@ -628,19 +642,33 @@ function updateActiveNavOnScroll() {
     if (!sections.length) return;
     
     // Get current scroll position
-    const scrollPosition = window.scrollY + window.innerHeight / 3;
+    const scrollPosition = window.scrollY + 100; // Add offset to trigger earlier
     
     // Find the current visible section
     let currentSection = null;
     
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
+    // Loop through sections in reverse order to prioritize later sections
+    // This helps when sections overlap in the viewport
+    for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        const sectionTop = section.offsetTop - 100; // Adjust threshold to trigger earlier
         const sectionHeight = section.offsetHeight;
         
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             currentSection = section;
+            break;
         }
-    });
+    }
+    
+    // If no section found but we're at the top of the page, select the first section
+    if (!currentSection && window.scrollY < 100 && sections.length > 0) {
+        currentSection = sections[0];
+    }
+    
+    // If we're at the bottom of the page, select the last section
+    if (!currentSection && window.scrollY + window.innerHeight >= document.body.scrollHeight - 100) {
+        currentSection = sections[sections.length - 1];
+    }
     
     // Update active link
     if (currentSection) {
@@ -651,49 +679,85 @@ function updateActiveNavOnScroll() {
             // Get href attribute
             const href = link.getAttribute('href');
             
-            // If href contains an anchor that matches the current section's ID
-            if (href && href.includes(`#${currentSection.id}`)) {
+            // If href directly matches the section id with # prefix
+            if (href && href === `#${currentSection.id}`) {
                 link.classList.add('active');
             }
         });
     }
 }
 
+// Ensure CSS for active links is properly applied
+document.addEventListener('DOMContentLoaded', function() {
+    // Add active link styling if not already in the CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        .nav-links a.active {
+            color: var(--accent-color);
+            font-weight: 600;
+            position: relative;
+        }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Fix logo paths
+    const logo = document.querySelector('.logo img');
+    if (logo) {
+        // Ensure the logo has the correct path and adds better error handling
+        logo.onerror = function() {
+            // Try alternate path if first one fails
+            this.src = './assets/images/logo.svg';
+            // If that also fails, use fallback
+            this.onerror = function() {
+                this.src = './assets/images/fallback-icon.svg';
+                this.onerror = null;
+            };
+        };
+    }
+});
+
 // 🧠 PostHog Event Tracking for FlexApply MVP
 document.addEventListener('DOMContentLoaded', function () {
     // ✅ Apply Now Click
-    const applyBtn = document.querySelector('.btn-primary');
-    if (applyBtn) {
-        applyBtn.addEventListener('click', () => {
-            posthog.capture('click_apply_now');
-        });
-    }
-
-    // ✅ FAQ Toggle Click
-    document.querySelectorAll('.faq-question')?.forEach(el => {
-        el.addEventListener('click', () => {
-            posthog.capture('faq_toggle');
+    document.querySelectorAll('a[href="#form"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (typeof posthog !== 'undefined') {
+                posthog.capture('click_apply_now');
+            }
         });
     });
 
-    // ✅ Form Submit Attempt
-    const form = document.querySelector('form');
-    if (form) {
-        form.addEventListener('submit', () => {
-            posthog.capture('form_submit_attempt');
-        });
+    // ✅ FAQ Toggle Click
+    document.addEventListener('click', function(e) {
+        const faqQuestion = e.target.closest('.faq-question');
+        if (faqQuestion && typeof posthog !== 'undefined') {
+            posthog.capture('faq_toggle');
+        }
+    });
 
-        // Optional: fire after success logic if you use AJAX
-        form.addEventListener('formSuccess', () => {
-            posthog.capture('form_success');
-        });
-    }
+    // ✅ Form Submit Attempt
+    document.addEventListener('submit', function(e) {
+        if (e.target.id === 'contact-form' && typeof posthog !== 'undefined') {
+            posthog.capture('form_submit_attempt');
+        }
+    });
 
     // ✅ Scroll Depth Tracking
     const milestones = [25, 50, 75, 100];
     const triggered = new Set();
 
     window.addEventListener('scroll', () => {
+        if (typeof posthog === 'undefined') return;
+        
         const scrolled = ((window.scrollY + window.innerHeight) / document.body.scrollHeight) * 100;
         milestones.forEach(p => {
             if (scrolled >= p && !triggered.has(p)) {
@@ -702,4 +766,73 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+});
+
+function handleLogoError(imgElement) {
+    console.warn('Logo failed to load from:', imgElement.src);
+    
+    // Try different paths in sequence
+    const paths = [
+        // Try with absolute path
+        '/' + imgElement.src.replace(/^\//, ''),
+        // Try different file locations
+        '/assets/images/logo.svg',
+        '/assets/images/logo.png',
+        '/assets/images/logo-white.svg',
+        // Final fallback
+        '/assets/images/fallback-icon.svg'
+    ];
+    
+    // Try the next path in the sequence
+    tryNextPath(imgElement, paths, 0);
+}
+
+// Function to try paths sequentially
+function tryNextPath(imgElement, paths, index) {
+    if (index >= paths.length) {
+        // If we've exhausted all options, create an inline text fallback
+        createTextFallback(imgElement);
+        return;
+    }
+    
+    // Try the current path
+    imgElement.src = paths[index];
+    
+    // Set up error handler for this attempt
+    imgElement.onerror = function() {
+        this.onerror = null;
+        tryNextPath(imgElement, paths, index + 1);
+    };
+}
+
+// Create text fallback if all image attempts fail
+function createTextFallback(imgElement) {
+    const textLogo = document.createElement('span');
+    textLogo.className = 'text-logo';
+    textLogo.textContent = 'FlexApply';
+    textLogo.title = 'FlexApply';
+    
+    // Replace the img with the text fallback
+    imgElement.parentNode.replaceChild(textLogo, imgElement);
+    
+    // Add some inline styles for the text logo
+    const style = document.createElement('style');
+    style.textContent = `
+        .text-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Initialize on document load
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for logo immediately
+    const logo = document.querySelector('.logo img');
+    if (logo && logo.complete && logo.naturalWidth === 0) {
+        // Image failed to load during initial page load
+        handleLogoError(logo);
+    }
 });

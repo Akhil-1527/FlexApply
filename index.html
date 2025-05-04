@@ -58,7 +58,11 @@
         <div class="container">
             <nav aria-label="Main navigation">
                 <div class="logo">
-                    <a href="index.html" aria-label="FlexApply Home"><img src="assets/images/logo.svg" alt="FlexApply" height="40" width="160" onerror="this.src='assets/images/fallback-icon.svg'; this.onerror=null;"></a>
+                    <a href="index.html" aria-label="FlexApply Home">
+                        <img src="assets/images/logo.svg" alt="FlexApply" 
+                             height="40" width="160" 
+                             onerror="this.onerror=null; handleLogoError(this);">
+                    </a>
                 </div>
                 <button class="mobile-toggle" aria-expanded="false" aria-controls="main-menu" aria-label="Toggle menu">
                     <span></span>
