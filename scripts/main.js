@@ -15,6 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize floating CTA
     initFloatingCTA();
+    
+    // Set active nav links
+    setActiveNavLinks();
+    
+    // Add listener for scroll events to update active nav link
+    window.addEventListener('scroll', function() {
+        if (window.location.pathname === '/' || 
+            window.location.pathname.includes('index.html') || 
+            window.location.pathname === '') {
+            updateActiveNavOnScroll();
+        }
+    });
 });
 
 // Function to load all component HTML
@@ -24,6 +36,7 @@ function loadComponents() {
         { id: 'about-component', path: 'components/about/index.html' },
         { id: 'process-component', path: 'components/process/index.html' },
         { id: 'why-choose-component', path: 'components/why-choose/index.html' },
+        { id: 'who-we-help-component', path: 'components/who-we-help/index.html' },
         { id: 'quality-focus-component', path: 'components/quality-focus/index.html' },
         { id: 'pricing-component', path: 'components/pricing/index.html' },
         { id: 'trust-component', path: 'components/trust/index.html' },
@@ -565,6 +578,85 @@ function initFloatingCTA() {
             clearTimeout(showCTATimeout);
         }
     });
+}
+
+// Function to set active link in navigation
+function setActiveNavLinks() {
+    // Get current page pathname
+    const currentPath = window.location.pathname;
+    const currentHash = window.location.hash;
+    
+    // Get all nav links
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    // Remove any existing active classes
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Handle special cases for individual pages
+    if (currentPath.includes('privacy-policy.html')) {
+        document.querySelector('.nav-links a[href="privacy-policy.html"]')?.classList.add('active');
+        return;
+    }
+    
+    if (currentPath.includes('terms.html')) {
+        document.querySelector('.nav-links a[href="terms.html"]')?.classList.add('active');
+        return;
+    }
+    
+    // For homepage sections, highlight based on scroll position
+    if (currentPath === '/' || currentPath.includes('index.html') || currentPath === '') {
+        // If there's a hash in the URL, highlight that section
+        if (currentHash) {
+            const targetLink = document.querySelector(`.nav-links a[href="${currentHash}"]`);
+            if (targetLink) {
+                targetLink.classList.add('active');
+                return;
+            }
+        }
+        
+        // Otherwise, determine which section is currently visible
+        updateActiveNavOnScroll();
+    }
+}
+
+// Function to update active nav link based on scroll position
+function updateActiveNavOnScroll() {
+    // Get all sections that have IDs
+    const sections = document.querySelectorAll('section[id]');
+    if (!sections.length) return;
+    
+    // Get current scroll position
+    const scrollPosition = window.scrollY + window.innerHeight / 3;
+    
+    // Find the current visible section
+    let currentSection = null;
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            currentSection = section;
+        }
+    });
+    
+    // Update active link
+    if (currentSection) {
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            
+            // Get href attribute
+            const href = link.getAttribute('href');
+            
+            // If href contains an anchor that matches the current section's ID
+            if (href && href.includes(`#${currentSection.id}`)) {
+                link.classList.add('active');
+            }
+        });
+    }
 }
 
 // 🧠 PostHog Event Tracking for FlexApply MVP

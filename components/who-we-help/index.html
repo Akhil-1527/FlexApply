@@ -1,0 +1,156 @@
+<!-- components/who-we-help/index.html -->
+<div class="container">
+    <header class="section-header text-center">
+        <h2>Who We Help</h2>
+        <p>Our job application service is designed for professionals facing specific challenges in the job market.</p>
+        <div class="section-separator" aria-hidden="true"></div>
+    </header>
+    
+    <div class="who-we-help-grid">
+        <!-- International Students -->
+        <div class="who-we-help-card fade-in fade-in-1">
+            <h3>International Students (OPT/STEM OPT)</h3>
+            <p>Time-sensitive job search with visa deadlines. Need employment within limited timeframes.</p>
+            
+            <div class="challenge-block">
+                <h4>Common Challenge:</h4>
+                <p>"I'm qualified but running out of time on my OPT/STEM OPT period."</p>
+            </div>
+            
+            <div class="solution-block">
+                <h4>Our Solution:</h4>
+                <p>High-volume applications to OPT-friendly employers with proven sponsorship history.</p>
+            </div>
+        </div>
+        
+        <!-- H-1B Visa Holders -->
+        <div class="who-we-help-card fade-in fade-in-2">
+            <h3>H-1B Visa Holders</h3>
+            <p>Specialized job search requiring employers willing to transfer or maintain visa sponsorship.</p>
+            
+            <div class="challenge-block">
+                <h4>Common Challenge:</h4>
+                <p>"Companies reject me as soon as they learn I need visa sponsorship."</p>
+            </div>
+            
+            <div class="solution-block">
+                <h4>Our Solution:</h4>
+                <p>Targeted applications to H-1B transfer-friendly companies with custom cover letters addressing sponsorship proactively.</p>
+            </div>
+        </div>
+        
+        <!-- U.S. Citizens & Residents -->
+        <div class="who-we-help-card fade-in fade-in-3">
+            <h3>U.S. Citizens & Residents</h3>
+            <p>Frustrated by the modern application process and low response rates despite qualifications.</p>
+            
+            <div class="challenge-block">
+                <h4>Common Challenge:</h4>
+                <p>"I've applied to 200+ jobs with no response. What am I doing wrong?"</p>
+            </div>
+            
+            <div class="solution-block">
+                <h4>Our Solution:</h4>
+                <p>Strategic, high-volume applications with ATS optimization and personalized follow-up sequences.</p>
+            </div>
+        </div>
+        
+        <!-- Career Changers -->
+        <div class="who-we-help-card fade-in fade-in-4">
+            <h3>Career Changers</h3>
+            <p>Struggling to get interviews when transitioning to a new industry or role.</p>
+            
+            <div class="challenge-block">
+                <h4>Common Challenge:</h4>
+                <p>"I have transferable skills but can't get past the application filters."</p>
+            </div>
+            
+            <div class="solution-block">
+                <h4>Our Solution:</h4>
+                <p>Skill-focused applications with targeted cover letters that highlight relevant transferable experience.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Who We Help Section Styles */
+.who-we-help-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Fixed to 4 columns in a row */
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.who-we-help-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.who-we-help-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.who-we-help-card > p {
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.challenge-block, .solution-block {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    position: relative;
+}
+
+.challenge-block {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid #FFC107;
+}
+
+.solution-block {
+    background-color: rgba(46, 204, 113, 0.1);
+    border-left: 4px solid #2ecc71;
+}
+
+.challenge-block h4, .solution-block h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .who-we-help-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .who-we-help-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .who-we-help-card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+}
+</style>
